@@ -7,7 +7,7 @@ namespace Services
 {
     public interface IOrderService
     {
-        IEnumerable<OrderModel> GetOrders();
+        IEnumerable<OrderModel> GetOrders(int userId);
         void Add(OrderModel model);
     }
 }

@@ -6,16 +6,15 @@ using System.Text;
 
 namespace DataModels
 {
-    public class OrderDto
+    public class UserDto
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        public string FullName { get; set; }
-        public string Address { get; set; }
-        public string City { get; set; }
-        public string CreditCardNumber { get; set; }
-        public int UserId { get; set; }
-        public virtual UserDto User { get; set; }
+        public string Username { get; set; }
+        public string Password { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public virtual ICollection<OrderDto> OrderList { get; set; }
     }
 }

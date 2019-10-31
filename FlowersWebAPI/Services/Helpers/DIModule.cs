@@ -15,6 +15,7 @@ namespace Services.Helpers
         {
             services.AddTransient<IRepository<FlowerDto>, FlowerRepository>();
             services.AddTransient<IRepository<OrderDto>, OrderRepository>();
+            services.AddTransient<IRepository<UserDto>, UserRepository>();
             services.AddDbContext<AppDbContext>(x =>
             x.UseSqlServer(connectionString));
 

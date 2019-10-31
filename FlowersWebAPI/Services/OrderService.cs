@@ -11,15 +11,24 @@ namespace Services
     public class OrderService: IOrderService
     {
         private readonly IRepository<OrderDto> _orderRepository;
-        public OrderService(IRepository<OrderDto> orderRepository)
+        private readonly IRepository<UserDto> _userRepository;
+        public OrderService(IRepository<OrderDto> orderRepository, IRepository<UserDto> userRepository)
         {
             _orderRepository = orderRepository;
+            _userRepository = userRepository;
         }
 
         public void Add(OrderModel model)
         {
+            var user = _userRepository.GetAll()
+                .FirstOrDefault(x => x.Id == model.UserId);
+
+            if (user == null)
+                throw new Exception("User was not found");
+
             OrderDto orderForDb = new OrderDto()
             {
+                UserId = model.UserId,
                 FullName = model.FullName,
                 Address = model.Address,
                 City = model.City,
@@ -28,9 +37,10 @@ namespace Services
             _orderRepository.Add(orderForDb);
         }
 
-        public IEnumerable<OrderModel> GetOrders()
+        public IEnumerable<OrderModel> GetOrders(int userId)
         {
             return _orderRepository.GetAll()
+                .Where(x => x.UserId == userId)
                 .Select(o =>
                 new OrderModel()
                 {

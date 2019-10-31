@@ -11,5 +11,6 @@ namespace Models
         public string Address { get; set; }
         public string City { get; set; }
         public string CreditCardNumber { get; set; }
+        public int UserId { get; set; }
     }
 }

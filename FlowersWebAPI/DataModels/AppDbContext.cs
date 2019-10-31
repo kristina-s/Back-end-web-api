@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace DataModels
@@ -12,9 +13,16 @@ namespace DataModels
 
         public DbSet<FlowerDto> Flowers { get; set; }
         public DbSet<OrderDto> Orders { get; set; }
+        public DbSet<UserDto> Users { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            builder.Entity<OrderDto>()
+                .HasOne(x => x.User)
+                .WithMany(x => x.OrderList)
+                .HasForeignKey(x => x.UserId);
+
             builder.Entity<FlowerDto>()
                 .HasData(
                     new FlowerDto()
@@ -36,7 +44,23 @@ namespace DataModels
                             "https://github.com/kristina-s/Frontend-project-resourses/blob/master/images/branch/flower-imgs/daisy-4.jpg?raw=true"
                         }
                     });
+            var md5 = new MD5CryptoServiceProvider();
+            var md5data = md5.ComputeHash(
+                Encoding.ASCII.GetBytes("1234"));
+            var hashedPassword = Encoding.ASCII.GetString(md5data);
 
+            builder.Entity<UserDto>()
+                .HasData(
+                new UserDto()
+                {
+                    Id = 1,
+                    FirstName = "Kristina",
+                    LastName = "Spasevska",
+                    Username = "kiki",
+                    Password = hashedPassword
+                });
+
+            
         }
     }
 }
