@@ -2,7 +2,7 @@
 
 ## About the project
 
-This is a web API created in .NET Core that serves the front-end part of the project which is an e-shop.
+This is a web API created in .NET Core that serves the front-end part of the project which is an online flowershop built with React framework (you can see that on https://github.com/kristina-s/React-project-eshop).
 It gives the users the ability to login, register, see the items, add to cart and buy from the shop.
 
 ## Idea
@@ -19,4 +19,5 @@ While making the front-end part of the app, the data (the items in the e-shop) w
  - SQL database
  - Front-end built with React
 
- 
+ ## License
+ Licensed under the MIT license.
